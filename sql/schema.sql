@@ -1,0 +1,29 @@
+DROP TABLE IF EXISTS notandi;
+DROP TABLE IF EXISTS skraningar;
+DROP TABLE IF EXISTS vidburdir;
+
+CREATE TABLE vidburdir (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(64) NOT NULL,
+    slug VARCHAR(64) NOT NULL,
+    description TEXT,
+    created TIMESTAMP NOT NULL
+    DEFAULT CURRENT_TIMESTAMP,
+    updated TIMESTAMP NOT NULL
+    DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE skraningar (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(64) NOT NULL,
+    comment TEXT,
+    event  INTEGER NOT NULL,
+    CONSTRAINT event FOREIGN KEY (event)
+    REFERENCES vidburdir (id),
+    created TIMESTAMP NOT NULL
+    DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE notandi (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(64) NOT NULL UNIQUE,
+    password VARCHAR(256) NOT NULL
+);
